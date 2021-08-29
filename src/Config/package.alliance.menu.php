@@ -1,10 +1,11 @@
 <?php
 
 return [
-  [
-      'name' => 'Structures',
-      'permission' => '',
-      'highlight_view' => 'research',
-      'route' => 'corporation.view.structures',
-  ]
+    [
+        'name' => 'Structures',
+        'label' => 'testing',
+        'permission' => 'global.superuser',
+        'highlight_view' => 'structures',
+        'route' => 'corporation.view.structures',
+    ]
 ];
