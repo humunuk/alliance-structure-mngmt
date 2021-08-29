@@ -21,7 +21,7 @@ class AllianceStructureManagementServiceProvider extends AbstractSeatPlugin
 
     public function getPackagistPackageName(): string
     {
-        return "seat-alliance-structure-management";
+        return "alliance-structure-mngmt";
     }
 
     public function getPackagistVendorName(): string
