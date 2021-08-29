@@ -19,5 +19,12 @@
         "laravel/framework": "^6.2",
         "eveseat/services": "^4.0",
         "eveseat/web": "^4.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Humunuk\\Seat\\AllianceStructureManagement\\AllianceStructureManagementServiceProvider"
+            ]
+        }
     }
 }
