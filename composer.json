@@ -1,0 +1,23 @@
+{
+    "name": "humunuk/alliance-structure-mngmt",
+    "description": "Simple SEAT package to get an overview of alliance structures",
+    "authors": [
+        {
+            "name": "Siim Kallari",
+            "email": "siim.kallari@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Humunuk\\Seat\\AllianceStructureManagement\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.3",
+        "laravel/framework": "^6.2",
+        "eveseat/services": "^4.0",
+        "eveseat/web": "^4.0"
+    }
+}
