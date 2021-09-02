@@ -1,6 +1,7 @@
 {
     "name": "humunuk/alliance-structure-mngmt",
     "description": "Simple SEAT package to get an overview of alliance structures",
+    "homepage": "https://github.com/humunuk/alliance-structure-mngmt",
     "authors": [
         {
             "name": "Siim Kallari",
@@ -18,7 +19,11 @@
         "php": "^7.3",
         "laravel/framework": "^6.2",
         "eveseat/services": "^4.0",
-        "eveseat/web": "^4.0"
+        "eveseat/web": "^4.0",
+        "yajra/laravel-datatables-oracle": "^9.10",
+        "yajra/laravel-datatables-buttons": "^4.0",
+        "datatables.net/datatables.net-bs4": "dev-master",
+        "datatables.net/datatables.net-buttons-bs4": "dev-master"
     },
     "extra": {
         "laravel": {
