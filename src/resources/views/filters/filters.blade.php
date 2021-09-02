@@ -17,9 +17,10 @@
         $(document).ready(function () {
             $('.dt-filters')
                 .on('click', function () {
+                    var clicked  = this;
                     $("[data-filter-field].dt-filters.active").each(function(i, e) {
                         var a = $(e);
-                        if (e !== this) {
+                        if (e !== clicked) {
                             a.removeClass("active");
                         }
                     });
