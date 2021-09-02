@@ -6,7 +6,7 @@ Simple package that adds Structures sub-menu to Alliance page in SEAT to display
 Adds filters to filter for: low power, less than week or less than month fuel left structures.
 
 
-![Example](https://imgur.com/QrSRJIC)
+![Example](https://i.imgur.com/QrSRJIC.jpeg)
 
 ## Contributing
 
