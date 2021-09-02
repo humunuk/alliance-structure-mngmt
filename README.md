@@ -14,4 +14,4 @@ Fork the repo, open PR
 
 ## Donations
 
-Feel like the plugin helped you a lot? Consider donating some ISK in EVE to: Muusika K6lab
+Feel like the plugin helped you? Consider donating some ISK in EVE to: Muusika K6lab
