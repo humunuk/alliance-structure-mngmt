@@ -32,6 +32,7 @@ class AllianceStructureManagementServiceProvider extends AbstractSeatPlugin
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/Config/package.alliance.menu.php', 'package.alliance.menu');
+        $this->registerPermissions(__DIR__ . '/Config/Permissions/alliance.php', 'alliance');
     }
 
     public function boot()

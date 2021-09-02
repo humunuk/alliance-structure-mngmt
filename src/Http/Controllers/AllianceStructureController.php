@@ -15,7 +15,7 @@ class AllianceStructureController extends Controller
     public function index(Alliance $alliance, AllianceStructuresDatatable $dataTable)
     {
         return $dataTable
-            ->addScope(new AllianceStructureManagementScope('global.superuser', [$alliance->alliance_id]))
+            ->addScope(new AllianceStructureManagementScope('alliance.structures', [$alliance->alliance_id]))
             ->addScope(new AllianceStructureManagementFuelScope(request()->input('filters.fuel')))
             ->render("alliance-structure-mngmt::structures", ['alliance' => $alliance]);
     }

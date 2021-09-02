@@ -4,7 +4,7 @@ return [
     [
         'name' => 'Structures',
         'label' => 'Structures',
-        'permission' => 'global.superuser',
+        'permission' => 'alliance.structures',
         'highlight_view' => 'structures',
         'route' => 'alliance-structure-mgmt.index',
     ]
