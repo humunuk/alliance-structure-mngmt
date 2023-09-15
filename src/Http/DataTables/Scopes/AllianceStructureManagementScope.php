@@ -10,31 +10,18 @@ use Yajra\DataTables\Contracts\DataTableScope;
 class AllianceStructureManagementScope implements DataTableScope
 {
     /**
-     * @var string|null
-     */
-    private $ability;
-    /**
-     * @var array|null
-     */
-    private $requested_alliances;
-
-    /**
      * @param string|null $ability
-     * @param int[]|null $allianceIds
+     * @param int[]|null $requested_alliances
      */
-    public function __construct(?string $ability = null, ?array $allianceIds = null)
+    public function __construct(private readonly ?string $ability = null, private readonly ?array $requested_alliances = null)
     {
-        $this->ability = $ability;
-        $this->requested_alliances = $allianceIds;
     }
 
     public function apply($query)
     {
 
         if ($this->requested_alliances != null) {
-            $alliance_ids = collect($this->requested_alliances)->filter(function ($item) {
-                return Gate::allows($this->ability, [$item]);
-            });
+            $alliance_ids = collect($this->requested_alliances)->filter(fn($item) => Gate::allows($this->ability, [$item]));
 
             return $alliance_ids->count() == count($this->requested_alliances) ?
                 $query->whereIn("corporation_infos.alliance_id", $this->requested_alliances) :
@@ -48,20 +35,20 @@ class AllianceStructureManagementScope implements DataTableScope
         $permissions = auth()->user()->roles()->with('permissions')->get()
             ->pluck('permissions')
             ->flatten()
-            ->filter(function ($permission) {
+            ->filter(function ($permission): bool {
                 if (empty($this->ability))
-                    return strpos($permission->title, 'alliance.') === 0;
+                    return str_starts_with((string) $permission->title, 'alliance.');
 
                 return $permission->title == $this->ability;
             });
 
         // in case at least one permission is granted without restrictions, return all
-        if ($permissions->filter(function ($permission) { return ! $permission->hasFilters(); })->isNotEmpty())
+        if ($permissions->filter(fn($permission): bool => ! $permission->hasFilters())->isNotEmpty())
             return $query;
 
         // extract entity ids and group by entity type
-        $map = $permissions->map(function ($permission) {
-            $filters = json_decode($permission->pivot->filters);
+        $map = $permissions->map(function ($permission): array {
+            $filters = json_decode((string) $permission->pivot->filters, null, 512, JSON_THROW_ON_ERROR);
 
             return [
                 'alliances'    => collect($filters->alliance ?? [])->pluck('id')->toArray(),

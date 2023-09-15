@@ -14,40 +14,26 @@ class AllianceStructuresDatatable extends DataTable
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function ajax()
+    public function ajax(): \Illuminate\Http\JsonResponse
     {
         return datatables()
             ->eloquent($this->applyScopes($this->query()))
-            ->editColumn('corporation_name', function($row) {
-                return view('alliance-structure-mngmt::partials.corporation', ['corporationStructure' => $row]);
-            })
-            ->editColumn('type.typeName', function ($row) {
-                return view('web::partials.type', ['type_id' => $row->type->typeID, 'type_name' => $row->type->typeName])->render();
-            })
-            ->editColumn('state', function ($row) {
-                return ucfirst(str_replace('_', ' ', $row->state));
-            })
+            ->editColumn('corporation_name', fn($row) => view('alliance-structure-mngmt::partials.corporation', ['corporationStructure' => $row]))
+            ->editColumn('type.typeName', fn($row) => view('web::partials.type', ['type_id' => $row->type->typeID, 'type_name' => $row->type->typeName])->render())
+            ->editColumn('state', fn($row): string => ucfirst(str_replace('_', ' ', (string) $row->state)))
             ->editColumn('fuel_expires', function ($row) {
                 if ($row->fuel_expires)
                     return view('web::partials.date', ['datetime' => $row->fuel_expires])->render();
 
                 return trans('web::seat.low_power');
             })
-            ->editColumn('reinforce_hour', function ($row) {
-                return view('web::corporation.structures.partials.reinforcement', compact('row'))->render();
+            ->editColumn('reinforce_hour', fn($row) => view('web::corporation.structures.partials.reinforcement', ['row' => $row])->render())
+            ->editColumn('services', fn($row) => view('web::corporation.structures.partials.services', ['row' => $row])->render())
+            ->editColumn('action', fn($row) => view('web::corporation.structures.buttons.action', ['row' => $row])->render())
+            ->filterColumn('services', function ($query, $keyword): void {
+                $query->whereHas('services', fn($sub_query) => $sub_query->whereRaw('name LIKE ?', ["%$keyword%"]));
             })
-            ->editColumn('services', function ($row) {
-                return view('web::corporation.structures.partials.services', compact('row'))->render();
-            })
-            ->editColumn('action', function ($row) {
-                return view('web::corporation.structures.buttons.action', compact('row'))->render();
-            })
-            ->filterColumn('services', function ($query, $keyword) {
-                $query->whereHas('services', function ($sub_query) use ($keyword) {
-                    return $sub_query->whereRaw('name LIKE ?', ["%$keyword%"]);
-                });
-            })
-            ->filterColumn('corporation_name', function($query, $keyword) {
+            ->filterColumn('corporation_name', function($query, $keyword): void {
                 $query->where('corporation_infos.name', 'LIKE', "%$keyword%");
             })
             ->rawColumns(['action', 'type.typeName', 'fuel_expires', 'offline_estimate', 'reinforce_hour', 'services', 'corporation_name'])
@@ -91,7 +77,7 @@ class AllianceStructuresDatatable extends DataTable
     /**
      * @return array
      */
-    public function getColumns()
+    public function getColumns(): array
     {
         return [
             ['data' => 'corporation_name', 'title' => trans('alliance-structure-mngmt::alliance-structure-table.corporation')],
