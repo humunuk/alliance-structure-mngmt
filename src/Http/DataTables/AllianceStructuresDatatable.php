@@ -37,7 +37,7 @@ class AllianceStructuresDatatable extends DataTable
                 $query->where('corporation_infos.name', 'LIKE', "%$keyword%");
             })
             ->rawColumns(['action', 'type.typeName', 'fuel_expires', 'offline_estimate', 'reinforce_hour', 'services', 'corporation_name'])
-            ->make(true);
+            ->toJson();
     }
 
     /**
