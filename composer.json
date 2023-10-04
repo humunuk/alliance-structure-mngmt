@@ -16,14 +16,10 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^7.3",
-        "laravel/framework": "^6.2",
-        "eveseat/services": "^4.0",
-        "eveseat/web": "^4.0",
-        "yajra/laravel-datatables-oracle": "^9.10",
-        "yajra/laravel-datatables-buttons": "^4.0",
-        "datatables.net/datatables.net-bs4": "dev-master",
-        "datatables.net/datatables.net-buttons-bs4": "dev-master"
+        "php": "^8.2",
+        "laravel/framework": "^10.0",
+        "eveseat/services": "^5.0",
+        "eveseat/web": "^5.0"
     },
     "extra": {
         "laravel": {
@@ -31,5 +27,9 @@
                 "Humunuk\\Seat\\AllianceStructureManagement\\AllianceStructureManagementServiceProvider"
             ]
         }
+    },
+    "require-dev": {
+        "rector/rector": "^0.18.3",
+        "driftingly/rector-laravel": "^0.24.1"
     }
 }

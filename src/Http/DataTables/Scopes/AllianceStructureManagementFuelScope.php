@@ -9,18 +9,12 @@ use Yajra\DataTables\Contracts\DataTableScope;
 
 class AllianceStructureManagementFuelScope implements DataTableScope
 {
-    const LOW_POWER = 'low_power';
-    const LESS_THAN_WEEK = 'less_than_week';
-    const LESS_THAN_MONTH = 'less_than_month';
+    final public const LOW_POWER = 'low_power';
+    final public const LESS_THAN_WEEK = 'less_than_week';
+    final public const LESS_THAN_MONTH = 'less_than_month';
 
-    /**
-     * @var string
-     */
-    private $filter;
-
-    public function __construct(?string $filter)
+    public function __construct(private readonly ?string $filter)
     {
-        $this->filter = $filter;
     }
 
     public function apply($query)
@@ -40,15 +34,11 @@ class AllianceStructureManagementFuelScope implements DataTableScope
 
     private function parseFilter(): ?string
     {
-        switch ($this->filter) {
-            case self::LOW_POWER:
-                return self::LOW_POWER;
-            case self::LESS_THAN_WEEK:
-                return now()->addWeek();
-            case self::LESS_THAN_MONTH:
-                return now()->addMonth();
-            default:
-                return null;
-        }
+        return match ($this->filter) {
+            self::LOW_POWER => self::LOW_POWER,
+            self::LESS_THAN_WEEK => now()->addWeek(),
+            self::LESS_THAN_MONTH => now()->addMonth(),
+            default => null,
+        };
     }
 }
